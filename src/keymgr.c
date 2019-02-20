@@ -227,7 +227,7 @@ keymgr_submit_file(u_int8_t id, struct kore_domain *dom,
 
 	if (st.st_size <= 0 || st.st_size > (1024 * 1024 * 10)) {
 		fatal("%s length is not valid (%jd)", file,
-		    (intmax_t)st.st_size);
+		    (int64_t)st.st_size);
 	}
 
 	len = sizeof(*msg) + st.st_size;

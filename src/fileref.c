@@ -61,11 +61,6 @@ kore_fileref_create(const char *path, int fd, off_t size, struct timespec *ts)
 	ref->mtime = ((u_int64_t)(ts->tv_sec * 1000 + (ts->tv_nsec / 1000000)));
 
 #if !defined(KORE_USE_PLATFORM_SENDFILE)
-	if ((uintmax_t)size> SIZE_MAX) {
-		kore_pool_put(&ref_pool, ref);
-		return (NULL);
-	}
-
 	ref->base = mmap(NULL, (size_t)size, PROT_READ, MAP_PRIVATE, fd, 0);
 	if (ref->base == MAP_FAILED)
 		fatal("net_send_file: mmap failed: %s", errno_s);
